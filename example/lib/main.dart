@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   var request = BraintreeDropInRequest(
                       tokenizationKey: tokenizationKey,
@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('LAUNCH NATIVE DROP-IN'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final request = BraintreeCreditCardRequest(
                       cardNumber: '4111111111111111',
@@ -106,7 +106,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('TOKENIZE CREDIT CARD'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final request = BraintreeCreditCardRequest(
                       cardNumber: '4111111111111111',
@@ -141,7 +141,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('TOKENIZE CREDIT CARD + 3DS'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final request = BraintreePayPalRequest(
                     billingAgreementDescription:
@@ -159,7 +159,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('PAYPAL VAULT FLOW'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final request = BraintreePayPalRequest(amount: '13.37');
                   BraintreePaymentMethodNonce result =
@@ -173,7 +173,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('PAYPAL CHECKOUT FLOW'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final result = await Braintree.requestDeviceData(
                     tokenizationKey,
@@ -185,7 +185,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('REQUEST DEVICE DATA'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final result = await Braintree.requestPaypalDeviceData(
                     tokenizationKey,
@@ -197,7 +197,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('REQUEST PAYPAL DEVICE DATA'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final result = await Braintree.canMakePaymentsWithApplePay();
 
@@ -205,13 +205,13 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('CAN MAKE PAYMENTS WITH APPLE PAY'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final request = BraintreeApplePayRequest(
                       amount: '12.12',
-                    appleMerchantID: '',
-                    countryCode: '',
-                    displayName: '',
+                      appleMerchantID: '',
+                      countryCode: '',
+                      displayName: '',
                       currencyCode: 'USD');
 
                   BraintreePaymentMethodNonce result =
@@ -224,7 +224,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('REQUEST APPLE PAY PAYMENT'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final result = await Braintree.canMakePaymentsWithGooglePay(
                       authorization: tokenizationKey);
@@ -233,7 +233,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text('CAN MAKE PAYMENTS WITH GOOGLE PAY'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                   final request = BraintreeGooglePaymentRequest(
                       billingAddressRequired: false,

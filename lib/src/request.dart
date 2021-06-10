@@ -19,14 +19,14 @@ class BraintreeDropInRequest {
 
   /// Authorization allowing this client to communicate with Braintree.
   /// Either [clientToken] or [tokenizationKey] must be set.
-  String clientToken;
+  String? clientToken;
 
   /// Authorization allowing this client to communicate with Braintree.
   /// Either [clientToken] or [tokenizationKey] must be set.
-  String tokenizationKey;
+  String? tokenizationKey;
 
   /// Amount for the transaction. This is only used for 3D secure verfications.
-  String amount;
+  String? amount;
 
   /// Whether the Drop-in should collect and return device data for fraud prevention.
   bool collectDeviceData;
@@ -36,10 +36,10 @@ class BraintreeDropInRequest {
   bool requestThreeDSecureVerification;
 
   /// Google Payment request. Google Pay will be disabled if this is set to `null`.
-  BraintreeGooglePaymentRequest googlePaymentRequest;
+  BraintreeGooglePaymentRequest? googlePaymentRequest;
 
   /// PayPal request. PayPal will be disabled if this is set to `null`.
-  BraintreePayPalRequest paypalRequest;
+  BraintreePayPalRequest? paypalRequest;
 
   /// Whether Venmo should be enabled.
   bool venmoEnabled;
@@ -59,27 +59,25 @@ class BraintreeDropInRequest {
   /// ApplePay request. ApplePay will be disabled if this is set to `null`.
   /// The ApplePay option will not be visible in the drop-in UI if the setup in
   /// Xcode, App Store Connect or Braintree control panel was done incorrectly.
-  BraintreeApplePayRequest applePayRequest;
+  BraintreeApplePayRequest? applePayRequest;
 
   /// Converts this request object into a JSON-encodable format.
   Map<String, dynamic> toJson() => {
         if (clientToken != null) 'clientToken': clientToken,
         if (tokenizationKey != null) 'tokenizationKey': tokenizationKey,
         if (amount != null) 'amount': amount,
-        if (collectDeviceData != null) 'collectDeviceData': collectDeviceData,
-        if (requestThreeDSecureVerification != null)
-          'requestThreeDSecureVerification': requestThreeDSecureVerification,
+        'collectDeviceData': collectDeviceData,
+        'requestThreeDSecureVerification': requestThreeDSecureVerification,
         if (googlePaymentRequest != null)
-          'googlePaymentRequest': googlePaymentRequest.toJson(),
-        if (paypalRequest != null) 'paypalRequest': paypalRequest.toJson(),
+          'googlePaymentRequest': googlePaymentRequest!.toJson(),
+        if (paypalRequest != null) 'paypalRequest': paypalRequest!.toJson(),
         if (applePayRequest != null)
-          'applePayRequest': applePayRequest.toJson(),
-        if (venmoEnabled != null) 'venmoEnabled': venmoEnabled,
-        if (cardEnabled != null) 'cardEnabled': cardEnabled,
-        if (maskCardNumber != null) 'maskCardNumber': maskCardNumber,
-        if (maskSecurityCode != null) 'maskSecurityCode': maskSecurityCode,
-        if (vaultManagerEnabled != null)
-          'vaultManagerEnabled': vaultManagerEnabled,
+          'applePayRequest': applePayRequest!.toJson(),
+        'venmoEnabled': venmoEnabled,
+        'cardEnabled': cardEnabled,
+        'maskCardNumber': maskCardNumber,
+        'maskSecurityCode': maskSecurityCode,
+        'vaultManagerEnabled': vaultManagerEnabled,
       };
 }
 
@@ -92,19 +90,19 @@ class BraintreeCreditCardRequest {
       this.shouldValidate});
 
   /// Number shown on the credit card.
-  String cardNumber;
+  String? cardNumber;
 
   /// Two didgit expiration month, e.g. `'05'`.
-  String expirationMonth;
+  String? expirationMonth;
 
   /// Four didgit expiration year, e.g. `'2021'`.
-  String expirationYear;
+  String? expirationYear;
 
   /// CVV verification, e.g. `'456'`.
-  String cvv;
+  String? cvv;
 
   /// Should perform card validation
-  bool shouldValidate;
+  bool? shouldValidate;
 
   Map<String, dynamic> toJson() => {
         if (cardNumber != null) 'cardNumber': cardNumber,
@@ -115,11 +113,11 @@ class BraintreeCreditCardRequest {
       };
 
   BraintreeCreditCardRequest copyWith(
-      {String cardNumber,
-      String expirationMonth,
-      String expirationYear,
-      String cvv,
-      bool shouldValidate}) {
+      {String? cardNumber,
+      String? expirationMonth,
+      String? expirationYear,
+      String? cvv,
+      bool? shouldValidate}) {
     return BraintreeCreditCardRequest(
         cardNumber: cardNumber ?? this.cardNumber,
         expirationMonth: expirationMonth ?? this.expirationMonth,
@@ -138,23 +136,22 @@ class BraintreeGooglePaymentRequest {
   });
 
   /// Total price of the payment.
-  String totalPrice;
+  String? totalPrice;
 
   /// Currency code of the transaction.
-  String currencyCode;
+  String? currencyCode;
 
   /// Whether billing address information should be collected and passed.
   bool billingAddressRequired;
 
   /// Google Merchant ID. Optional in sandbox, but if set, must be a valid production Google Merchant ID.
-  String googleMerchantID;
+  String? googleMerchantID;
 
   /// Converts this request object into a JSON-encodable format.
   Map<String, dynamic> toJson() => {
         if (totalPrice != null) 'totalPrice': totalPrice,
         if (currencyCode != null) 'currencyCode': currencyCode,
-        if (billingAddressRequired != null)
-          'billingAddressRequired': billingAddressRequired,
+        'billingAddressRequired': billingAddressRequired,
         if (googleMerchantID != null) 'googleMerchantID': googleMerchantID,
       };
 }
@@ -169,16 +166,16 @@ class BraintreePayPalRequest {
 
   /// Amount of the transaction. If [amount] is `null`, PayPal will use the billing agreement (Vault) flow.
   /// If [amount] is set, PayPal will follow the one time payment (Checkout) flow.
-  String amount;
+  String? amount;
 
   /// Currency code. If set to null`null`, PayPal will choose it based on the active merchant account in the client token.
-  String currencyCode;
+  String? currencyCode;
 
   /// The merchant name displayed in the PayPal flow. If set to `null`, PayPal will use the company name in your Braintree account.
-  String displayName;
+  String? displayName;
 
   /// Description for the billing agreement for the Vault flow.
-  String billingAgreementDescription;
+  String? billingAgreementDescription;
 
   /// Converts this request object into a JSON-encodable format.
   Map<String, dynamic> toJson() => {
@@ -192,15 +189,12 @@ class BraintreePayPalRequest {
 
 class BraintreeApplePayRequest {
   BraintreeApplePayRequest({
-    this.amount,
-    this.displayName,
+    required this.amount,
+    required this.displayName,
     this.currencyCode,
     this.countryCode,
-    this.appleMerchantID,
-  })  : assert(amount != null),
-        assert(displayName != null),
-        assert(currencyCode != null && countryCode != null),
-        assert(appleMerchantID != null);
+    required this.appleMerchantID,
+  }) : assert(currencyCode != null && countryCode != null);
 
   /// The item's amount.
   final String amount;
@@ -209,34 +203,34 @@ class BraintreeApplePayRequest {
   final String displayName;
 
   /// The three-letter ISO 4217 currency code.
-  final String currencyCode;
+  final String? currencyCode;
 
   /// The three-letter ISO 4217 currency code.
-  final String countryCode;
+  final String? countryCode;
 
   /// Apple merchant identifier.
   final String appleMerchantID;
 
   /// Converts this request object into a JSON-encodable format.
   Map<String, dynamic> toJson() => {
-        if (amount != null) 'amount': amount,
+        'amount': amount,
         if (currencyCode != null) 'currencyCode': currencyCode,
-        if (displayName != null) 'displayName': displayName,
+        'displayName': displayName,
         if (countryCode != null) 'countryCode': countryCode,
-        if (appleMerchantID != null) 'appleMerchantID': appleMerchantID,
+        'appleMerchantID': appleMerchantID,
       };
 }
 
 class BraintreeThreeDSecurePostalAddress {
-  final String givenName;
-  final String surname;
-  final String phoneNumber;
-  final String streetAddress;
-  final String extendedAddress;
-  final String locality;
-  final String region;
-  final String postalCode;
-  final String countryCodeAlpha;
+  final String? givenName;
+  final String? surname;
+  final String? phoneNumber;
+  final String? streetAddress;
+  final String? extendedAddress;
+  final String? locality;
+  final String? region;
+  final String? postalCode;
+  final String? countryCodeAlpha;
 
   BraintreeThreeDSecurePostalAddress({
     this.givenName,
@@ -251,15 +245,15 @@ class BraintreeThreeDSecurePostalAddress {
   });
 
   BraintreeThreeDSecurePostalAddress copyWith({
-    String givenName,
-    String surname,
-    String phoneNumber,
-    String streetAddress,
-    String extendedAddress,
-    String locality,
-    String region,
-    String postalCode,
-    String countryCodeAlpha,
+    String? givenName,
+    String? surname,
+    String? phoneNumber,
+    String? streetAddress,
+    String? extendedAddress,
+    String? locality,
+    String? region,
+    String? postalCode,
+    String? countryCodeAlpha,
   }) {
     return BraintreeThreeDSecurePostalAddress(
       givenName: givenName ?? this.givenName,
@@ -288,7 +282,8 @@ class BraintreeThreeDSecurePostalAddress {
     };
   }
 
-  factory BraintreeThreeDSecurePostalAddress.fromMap(Map<String, dynamic> map) {
+  static BraintreeThreeDSecurePostalAddress? fromMap(
+      Map<String, dynamic>? map) {
     if (map == null) return null;
 
     return BraintreeThreeDSecurePostalAddress(
@@ -306,7 +301,7 @@ class BraintreeThreeDSecurePostalAddress {
 
   String toJson() => json.encode(toMap());
 
-  factory BraintreeThreeDSecurePostalAddress.fromJson(String source) =>
+  static BraintreeThreeDSecurePostalAddress? fromJson(String source) =>
       BraintreeThreeDSecurePostalAddress.fromMap(json.decode(source));
 
   @override
@@ -316,10 +311,10 @@ class BraintreeThreeDSecurePostalAddress {
 }
 
 class BraintreeThreeDSecureRequest {
-  final String amount;
-  final String nonce;
-  final String email;
-  final BraintreeThreeDSecurePostalAddress address;
+  final String? amount;
+  final String? nonce;
+  final String? email;
+  final BraintreeThreeDSecurePostalAddress? address;
 
   BraintreeThreeDSecureRequest({
     this.amount,
@@ -329,10 +324,10 @@ class BraintreeThreeDSecureRequest {
   });
 
   BraintreeThreeDSecureRequest copyWith({
-    String amount,
-    String nonce,
-    String email,
-    BraintreeThreeDSecurePostalAddress address,
+    String? amount,
+    String? nonce,
+    String? email,
+    BraintreeThreeDSecurePostalAddress? address,
   }) {
     return BraintreeThreeDSecureRequest(
       amount: amount ?? this.amount,
@@ -351,7 +346,7 @@ class BraintreeThreeDSecureRequest {
     };
   }
 
-  factory BraintreeThreeDSecureRequest.fromMap(Map<String, dynamic> map) {
+  static BraintreeThreeDSecureRequest? fromMap(Map<String, dynamic>? map) {
     if (map == null) return null;
 
     return BraintreeThreeDSecureRequest(
@@ -364,7 +359,7 @@ class BraintreeThreeDSecureRequest {
 
   String toJson() => json.encode(toMap());
 
-  factory BraintreeThreeDSecureRequest.fromJson(String source) =>
+  static BraintreeThreeDSecureRequest? fromJson(String source) =>
       BraintreeThreeDSecureRequest.fromMap(json.decode(source));
 
   @override
